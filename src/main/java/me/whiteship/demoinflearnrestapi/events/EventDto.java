@@ -1,33 +1,35 @@
 package me.whiteship.demoinflearnrestapi.events;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter @Setter
-@EqualsAndHashCode(of="id")
+@Builder @Data @NoArgsConstructor @AllArgsConstructor
 
-@Entity
-public class Event {
-    @Id @GeneratedValue
-    private Integer id;
-
+public class EventDto {
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String description;
+    @NotNull
     private LocalDateTime beginEnrollmentDateTime;
+    @NotNull
     private LocalDateTime closeEnrollmentDateTime;
+    @NotNull
     private LocalDateTime beginEventDateTime;
+    @NotNull
     private LocalDateTime endEventDateTime;
     private String location;
+    @Min(0)
     private int basePrice;
+    @Min(0)
     private int maxPrice;
+    @Min(0)
     private int limitOfEnrollment;
-    private boolean offline;
-    private boolean free;
-    @Enumerated(EnumType.STRING)
-    private EventStatus eventStatus = EventStatus.DRAFT;
 }
