@@ -30,4 +30,15 @@ public class Event {
     private boolean free;
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus = EventStatus.DRAFT;
+
+    public void update() {
+        if (this.basePrice==0 && this.maxPrice ==0 ){
+            this.free = true;
+        }
+        else {
+            this.free = false;
+        }
+
+        offline = (this.location == null||this.location.trim().isEmpty()) ? false : true;
+    }
 }

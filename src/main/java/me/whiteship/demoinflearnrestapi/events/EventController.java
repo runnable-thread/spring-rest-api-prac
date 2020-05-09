@@ -35,14 +35,14 @@ public class EventController{
     @PostMapping
     ResponseEntity getEvent(@RequestBody @Valid EventDto eventDto, Errors errors){
         if(errors.hasErrors()){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(errors);
         }
         eventValidator.validate(eventDto, errors);
         if (errors.hasErrors()){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(errors);
         }
         Event event = modelMapper.map(eventDto, Event.class);
-
+        event.update();
 
         Event newEvent = this.eventRepository.save(event);
         URI createdURI = linkTo(EventController.class).slash(newEvent.getId()).toUri();

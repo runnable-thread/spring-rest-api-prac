@@ -49,15 +49,11 @@ public class EventControllerTests {
                 .name("Spring")
                 .description("REST API")
                 .beginEnrollmentDateTime(LocalDateTime.of(2018,11,23,14,21))
-                .closeEnrollmentDateTime(LocalDateTime.of(2018,11,24,14,21))
+                .closeEnrollmentDateTime(LocalDateTime.of(2019,11,24,14,21))
                 .beginEventDateTime(LocalDateTime.of(2018,11,23,14,21))
-                .endEventDateTime(LocalDateTime.of(2018,11,23,14,21))
-                .basePrice(100)
-                .maxPrice(200)
+                .endEventDateTime(LocalDateTime.of(2020,1,25,14,21))
                 .limitOfEnrollment(100)
                 .location("d2")
-                .free(true)
-                .offline(false)
                 .build();
 
 //        Mockito.when(eventRepository.save(event)).thenReturn(event);
@@ -73,7 +69,8 @@ public class EventControllerTests {
                 .andExpect(header().exists(HttpHeaders.LOCATION))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/hal+json;charset=UTF-8"))
                 .andExpect(jsonPath("id").value(Matchers.not(100)))
-                .andExpect(jsonPath("free").value(Matchers.not(true)))
+                .andExpect(jsonPath("free").value(false))
+                .andExpect(jsonPath("offline").value(true))
                 .andExpect(jsonPath("eventStatus").value(EventStatus.DRAFT.name())) ;
 
     }
